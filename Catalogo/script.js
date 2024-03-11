@@ -1,34 +1,30 @@
-// Gerar lista de itens (simular DB)
-let cartItems = [];
+export function extractProducts() {
+    const produto = document.querySelectorAll('.card');
+    const bttBuy = document.querySelectorAll('.bttBuy');
 
-document.addEventListener("DOMContentLoaded", function() {
-    const buyButtons = document.querySelectorAll(".bttBuy");
+    const item = [];
 
-    //Adicionando evento, gerando constantes de acordo com dados passado ao HTML
+    produto.forEach(produto =>{
 
-    buyButtons.forEach(button => {
-        button.addEventListener("click", function(event) {
-            const card = event.target.closest(".card");
-            const itemName = card.querySelector("h1").textContent;
-            const itemPrice = parseFloat(card.querySelector(".price h3").textContent.replace("R$ ", ""));
-            addItemToCart(itemName, itemPrice);
+        const nome = produto.querySelector('.cardPrice h1').innerText;
+
+        const precoTexto = produto.querySelector('.cardPrice h3').innerText;
+        const preco = parseFloat(precoTexto.replace('R$', '').replace(',', '.'));
+
+        const IMG = produto.querySelector('.cardPrice img').getAttribute('src');
+
+        item.push({nome, preco, IMG});
+    })
+
+    //Verificando o Array no console
+    console.log(item);
+
+    bttBuy.forEach((button, index) => {
+        button.addEventListener('click', () => {
+            // Salvando o item clicado no localStorage
+            const selectedItem = item[index];
+            localStorage.setItem('cart', JSON.stringify(selectedItem));
+            console.log('Item adicionado ao carrinho:', selectedItem);
         });
     });
-});
-
-// Função para adicionar item ao carrinho
-function addItemToCart(name, price) {
-
-    // Verificar se o item já está no carrinho(Adicionar +1 caso já tenha)
-
-    const existingItem = cartItems.find(item => item.name === name);
-    if (existingItem) {
-        existingItem.quantity++;
-    } else {
-        cartItems.push({ name, price, quantity: 1 });
-    }
-    
-    // Atualizar carrinho
-    renderCartItems();
-    updateCartPrice();
 }
