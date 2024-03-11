@@ -1,0 +1,195 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-color: #FDFBFC;
+}
+
+.page{
+    display: flex;
+}
+
+/*Header*/
+
+header{
+    width: 100%;
+    height: 6em;
+}
+
+.headerBar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #FFF;
+    padding: 0.5em 3em;
+    border-bottom: #000 1em solid;
+}
+
+.Logo{
+    height: 4em;
+}
+
+.searchBar{
+    margin-right: 1em;
+    display: flex;
+    border: 0.2em solid;
+    border-radius: 15px;
+    padding: 0.1em;
+}
+
+.searchBar input{
+    width: 15em;
+    border: none;
+    outline: none;
+    border-radius: 15px;
+}
+
+.headerNav{
+    display: flex;
+    align-items: center;
+}
+
+.headerNav a{
+    text-decoration: none;
+    color: #000;
+}
+
+/*Nav*/
+
+nav{
+    display: flex;
+    background-color: #FFF;
+    height: 200vh;
+    border-right: #000 0.3em solid;
+}
+
+.sideBar{
+    margin: 1em;
+}
+
+.filterSection{
+    margin: 1em 1em 3em 1em;
+    
+}
+
+.filterSection h1{
+    text-align: center;
+    border-bottom: 2px solid;
+    font-family: "Jacques Francois Shadow", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 25px;
+}
+
+.filterCheck{
+    display: flex;
+    align-items: center;
+    margin: 0.5em;
+}
+
+.filterCheck h2{
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 15px;
+    margin: 0.2em 0.5em;
+}
+
+/*Catalogo*/
+
+.list{
+    margin: 2em;
+    display: grid;
+    grid-template-columns: 4fr 4fr 4fr 4fr;
+    width: 90%;
+}
+
+
+/*Card's*/
+
+.card{
+    background-color: #4f424c9f;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20em;
+    height: 25em;
+    margin: 1em;
+    box-shadow: 1px 1px 5px;
+}
+
+.cardPrice{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 3px solid #4f424c;
+    border-radius: 15px;
+    box-shadow: 1px 1px 15px #000000;
+    padding: 0.5em;
+    overflow: hidden;
+    width: 80%;
+    height: 85%;
+}
+
+.item{
+    width: 16em;
+    height: 12em;
+}
+
+.price{
+    display: flex;
+    flex-direction: column;
+    margin-top: 1em;
+    align-items: center;
+}
+
+/*Font's*/
+
+h1{
+    font-size: 25px;
+}
+
+h3{
+    font-size: 22px;
+}
+
+h5{
+    font-size: 15px;
+}
+
+.buy{
+    position: absolute;
+    display: flex;
+    border-radius: 13px;
+    align-items: center;
+    justify-content: center;
+    background-color: #00000086;
+    width: 20em;
+    height: 25em;
+    opacity: 0;
+    transition: opacity 0.6s;
+}
+
+.bttBuy{
+    background-color: #4f424c;
+    color: #FFF;
+    font-size: 20px;
+    padding: 0.7em;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.8s;
+}
+
+.bttBuy:hover{
+    color: #000;
+    background-color: #FFF;
+    transform: translateY(6px);
+}
+
+.buy:hover{
+    opacity: 1;
+}

@@ -1,0 +1,100 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-color: #FDFBFC;
+}
+
+.page{
+    display: flex;
+}
+
+/*Header*/
+
+header{
+    width: 100%;
+    height: 6em;
+}
+
+.headerBar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #FFF;
+    padding: 0.5em 3em;
+    border-bottom: #000 1em solid;
+}
+
+.Logo{
+    height: 4em;
+}
+
+.searchBar{
+    margin-right: 1em;
+    display: flex;
+    border: 0.2em solid;
+    border-radius: 15px;
+    padding: 0.1em;
+}
+
+.searchBar input{
+    width: 15em;
+    border: none;
+    outline: none;
+    border-radius: 15px;
+}
+
+.headerNav{
+    display: flex;
+    align-items: center;
+}
+
+.headerNav a{
+    text-decoration: none;
+    color: #000;
+}
+
+.cartItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1em;
+    border-bottom: 1px solid #ccc;
+}
+
+.cartItem span {
+    margin-right: 1em;
+}
+
+.quantity {
+    display: flex;
+    align-items: center;
+}
+
+.quantity button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 0.5em;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.quantity button:hover {
+    background-color: #555;
+}
+
+.remove {
+    background-color: #ff6347; /* cor do tomato */
+    color: white;
+    border: none;
+    padding: 0.5em;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.remove:hover {
+    background-color: #cc4c3c; /* tomate mais escuro */
+}
