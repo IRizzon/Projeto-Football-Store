@@ -56,45 +56,136 @@ header{
     color: #000;
 }
 
-.cartItem {
+
+/*Lista de itens*/
+
+.data {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    padding: 1em;
-    border-bottom: 1px solid #ccc;
+    margin: 5em;
+    padding: 2em;
+    border: 2px solid #4f424c;
+    border-radius: 15px;
+    box-shadow: 1px 1px 8px #4f424c;
 }
 
-.cartItem span {
-    margin-right: 1em;
-}
-
-.quantity {
+.itemCard {
+    margin-bottom: 0.5em;
     display: flex;
     align-items: center;
+    border: 1.5px solid #000;
+    border-radius: 10px;
+    box-shadow: 0px 0px 3px;
 }
 
-.quantity button {
-    background-color: #333;
-    color: white;
-    border: none;
+.itemCard img{
+    width: 25%;
+    height: 5em;
     padding: 0.5em;
+    margin: 1em 2.5em;
+    border: 1px solid #000;
     border-radius: 5px;
-    cursor: pointer;
 }
 
-.quantity button:hover {
-    background-color: #555;
+.itemCard h2{
+    width: 50%;
+    border-bottom: 1px solid #000;
+    border-radius: 5px;
+    padding: 0.2em;
+    margin: 1em;
+    font-size: 25px; 
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
-.remove {
-    background-color: #ff6347; /* cor do tomato */
-    color: white;
-    border: none;
+.itemCard p{
+    width: 20%;
+    border: 2px solid #FFF;
+    border-radius: 5px;
+    background-color: #4f424c;
+    box-shadow: 0px 0px 10px #4f424c;
+    color: #FFF;
+    font-size: 15px;
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 200;
+    font-style: normal;
     padding: 0.5em;
-    border-radius: 5px;
-    cursor: pointer;
+    margin: 1em;
 }
 
-.remove:hover {
-    background-color: #cc4c3c; /* tomate mais escuro */
+.itemCard button{
+    width: 7%;
+    height: 10em;
+    background-color: #4f424c;
+    color: #4f424c;
+    font-family: "Ubuntu", sans-serif;
+    font-style: normal;
+    position: relative;
+    border: none;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.itemCard button:hover{
+    border-radius: 8px;
+    align-items: flex-end;
+    margin-left: 1em;
+    width: 10%;
+    background-color: #8f0000;
+    color: #FFF;
+    font-weight: 600;
+}
+
+.cartPrice{
+    width: 20%;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: flex-end;
+    justify-content: space-between;
+    font-family: "Ubuntu", sans-serif;
+    font-style: normal;
+    position: relative;
+}
+
+.cartPrice p{
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+    border: 2px solid #FFF;
+    background-color: #4f424c;
+    box-shadow: 0px 0px 5px #4f424c;
+    color: #FFF;
+    font-weight: 800;
+    width: 10em;
+    margin-right: 2em;
+    border-radius: 15px;
+}
+
+.cartPrice button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    width: 80px;
+    height: 60px;
+    padding: 1em;
+    border-radius: 50px;
+    background-color: #4f424c;
+    color: #FFF;
+    border: 2px solid #FFF;
+    box-shadow: 0px 0px 5px #4f424c;
+    cursor: pointer;
+    transition: all 1s;
+}
+
+.cartPrice button:hover{
+    transform: translateY(-8px);
+    background-color: #FFF;
+    color: #4f424c;
+    border: 2px solid #4f424c;
 }

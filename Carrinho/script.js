@@ -1,76 +1,69 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const itemListSection = document.querySelector(".itemList");
-    const cartPriceSection = document.querySelector(".cartPrice");
+document.addEventListener('DOMContentLoaded', () => {
+    const itemList = document.querySelector('.itemList');
+    const cartPrice = document.querySelector('.cartPrice');
 
-    // Simulação de itens adicionados ao carrinho
-    let cartItems = [
-        { name: "Chuteira Mizuno", price: 420.00, quantity: 1 },
-        { name: "Bola Nike", price: 100.00, quantity: 2 }
-    ];
+    // Verifica se há itens no localStorage
+    if (localStorage.getItem('cart')) {
+        const cartItems = JSON.parse(localStorage.getItem('cart'));
 
-    // Renderizar itens
-    function renderCartItems() {
-        itemListSection.innerHTML = "";
-        cartItems.forEach(item => {
-            const itemElement = document.createElement("div");
-            itemElement.innerHTML = `
-                <div class="cartItem">
-                    <span>${item.name}</span>
-                    <div class="quantity">
-                        <button class="decrement">-</button>
-                        <span>${item.quantity}</span>
-                        <button class="increment">+</button>
-                    </div>
-                    <button class="remove">Remover</button>
-                </div>
-            `;
-            itemListSection.appendChild(itemElement);
+        // Renderiza cada item do carrinho
+        cartItems.forEach(cartItem => {
+            const itemCard = createCartItemElement(cartItem);
+            itemList.appendChild(itemCard);
         });
+
+        // Atualiza o total do carrinho
+        updateCartTotal(cartItems);
     }
-
-    // Atualizar Total
-    function updateCartPrice() {
-        const totalPrice = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
-        cartPriceSection.innerHTML = `
-            <div class="totalPrice">
-                <span>Total: R$ ${totalPrice.toFixed(2)}</span>
-                <button class="checkout">Finalizar Compra</button>
-            </div>
-        `;
-    }
-
-    renderCartItems();
-    updateCartPrice();
-
-    // Diminuir a quantidade e remover itens
-    itemListSection.addEventListener("click", function(event) {
-        const target = event.target;
-        if (target.classList.contains("increment")) {
-            const itemName = target.closest(".cartItem").querySelector("span").textContent;
-            const item = cartItems.find(item => item.name === itemName);
-            item.quantity++;
-
-            renderCartItems();
-            updateCartPrice();
-
-        } else if (target.classList.contains("decrement")) {
-            const itemName = target.closest(".cartItem").querySelector("span").textContent;
-            const item = cartItems.find(item => item.name === itemName);
-            
-            if (item.quantity > 1) {
-                item.quantity--;
-
-                renderCartItems();
-                updateCartPrice();
-            }
-
-        } else if (target.classList.contains("remove")) {
-            const itemName = target.closest(".cartItem").querySelector("span").textContent;
-            const itemIndex = cartItems.findIndex(item => item.name === itemName);
-            cartItems.splice(itemIndex, 1);
-            
-            renderCartItems();
-            updateCartPrice();
-        }
-    });
 });
+
+// Função para criar um elemento de item do carrinho
+function createCartItemElement(cartItem) {
+    const itemCard = document.createElement('div');
+    itemCard.classList.add('itemCard');
+
+    // Adiciona a imagem do item
+    const img = document.createElement('img');
+    img.src = cartItem.IMG;
+    img.alt = cartItem.nome;
+    itemCard.appendChild(img);
+
+    // Adiciona o nome do item
+    const name = document.createElement('h2');
+    name.textContent = cartItem.nome;
+    itemCard.appendChild(name);
+
+    // Adiciona o preço do item
+    const price = document.createElement('p');
+    price.textContent = `Preço: R$ ${cartItem.preco.toFixed(2)}`;
+    itemCard.appendChild(price);
+
+    // Adiciona o botão de remover
+    const removeButton = document.createElement('button');
+    removeButton.textContent = 'Remover';
+    removeButton.addEventListener('click', () => {
+        // Remove o item do localStorage e da lista de itens
+        const updatedCart = JSON.parse(localStorage.getItem('cart')).filter(item => item !== cartItem);
+        localStorage.setItem('cart', JSON.stringify(updatedCart));
+        itemCard.remove();
+        // Atualiza o total do carrinho
+        updateCartTotal(updatedCart);
+    });
+    itemCard.appendChild(removeButton);
+
+    return itemCard;
+}
+
+// Função para atualizar o total do carrinho
+function updateCartTotal(cartItems) {
+    const total = cartItems.reduce((acc, item) => acc + item.preco, 0);
+    const cartTotal = document.createElement('p');
+    cartTotal.textContent = `Total: R$ ${total.toFixed(2)}`;
+    const existingCartTotal = document.querySelector('.cartPrice p');
+    if (existingCartTotal) {
+        existingCartTotal.replaceWith(cartTotal);
+    } else {
+        const cartPrice = document.querySelector('.cartPrice');
+        cartPrice.appendChild(cartTotal);
+    }
+}
