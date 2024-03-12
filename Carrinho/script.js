@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 document.addEventListener('DOMContentLoaded', () => {
     const itemList = document.querySelector('.itemList');
     const cartPrice = document.querySelector('.cartPrice');
@@ -67,3 +68,5 @@ function updateCartTotal(cartItems) {
         cartPrice.appendChild(cartTotal);
     }
 }
+=======
+>>>>>>> 8f7675db955a9bb755145c0eae2f67233eb08b29
