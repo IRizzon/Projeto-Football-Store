@@ -1,6 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
     const itemList = document.querySelector('.itemList');
     const cartPrice = document.querySelector('.cartPrice');
+    const itemCard = document.createElement('div');
+    itemCard.classList.add('itemCard');
+
+    const itemId = cartItem.id; // Usando a propriedade id do item como ID único
+    itemCard.dataset.itemId = itemId;
+
+    console.log("ID do item definido:", itemId);
 
     // Limpar o conteúdo do contêiner de itens do carrinho
     itemList.innerHTML = '';
