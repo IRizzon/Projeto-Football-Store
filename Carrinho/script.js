@@ -1,27 +1,74 @@
-<<<<<<< HEAD
 document.addEventListener('DOMContentLoaded', () => {
     const itemList = document.querySelector('.itemList');
     const cartPrice = document.querySelector('.cartPrice');
 
-    // Verifica se há itens no localStorage
+    // Limpar o conteúdo do contêiner de itens do carrinho
+    itemList.innerHTML = '';
+
     if (localStorage.getItem('cart')) {
         const cartItems = JSON.parse(localStorage.getItem('cart'));
 
-        // Renderiza cada item do carrinho
         cartItems.forEach(cartItem => {
             const itemCard = createCartItemElement(cartItem);
             itemList.appendChild(itemCard);
         });
 
-        // Atualiza o total do carrinho
         updateCartTotal(cartItems);
     }
 });
 
+function addToCart(item) {
+    // Gera um ID único para o item
+    item.id = generateItemId();
+
+    let cart = localStorage.getItem('cart');
+    if (cart) {
+        cart = JSON.parse(cart);
+        if (!Array.isArray(cart)) {
+            cart = [];
+        }
+    } else {
+        cart = [];
+    }
+
+    // Verifica se o item já está no carrinho
+    const existingItem = cart.find(cartItem => cartItem.id === item.id);
+
+    if (existingItem) {
+        // Se o item já estiver no carrinho, apenas atualize a quantidade
+        existingItem.quantity += 1; // ou qualquer outra lógica para atualizar a quantidade
+    } else {
+        // Se o item não estiver no carrinho, adicione-o ao carrinho
+        cart.push(item);
+    }
+
+    // Atualize o localStorage com o carrinho atualizado
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    console.log("Item adicionado ao carrinho:", item);
+
+    // Atualize o visual do carrinho
+    const itemCard = createCartItemElement(item);
+    const itemList = document.querySelector('.itemList');
+    itemList.appendChild(itemCard);
+
+    // Atualize o total do carrinho
+    updateCartTotal(cart);
+
+    alert("Item adicionado ao carrinho!");
+}
+
+
+let itemIdCounter = 0;
 // Função para criar um elemento de item do carrinho
 function createCartItemElement(cartItem) {
     const itemCard = document.createElement('div');
     itemCard.classList.add('itemCard');
+
+    const itemId = itemIdCounter++;
+    itemCard.dataset.itemId = itemId;
+
+    console.log("ID do item definido:", itemId);
 
     // Adiciona a imagem do item
     const img = document.createElement('img');
@@ -42,14 +89,44 @@ function createCartItemElement(cartItem) {
     // Adiciona o botão de remover
     const removeButton = document.createElement('button');
     removeButton.textContent = 'Remover';
-    removeButton.addEventListener('click', () => {
-        // Remove o item do localStorage e da lista de itens
-        const updatedCart = JSON.parse(localStorage.getItem('cart')).filter(item => item !== cartItem);
-        localStorage.setItem('cart', JSON.stringify(updatedCart));
-        itemCard.remove();
-        // Atualiza o total do carrinho
-        updateCartTotal(updatedCart);
+    removeButton.addEventListener('click', (e) => {
+        const itemCard = e.target.closest('.itemCard');
+        if (!itemCard) {
+            console.error("Item card não encontrado.");
+            return;
+        }
+    
+        const itemIdToRemove = itemCard.dataset.itemId;
+        console.log("ID do item a ser removido:", itemIdToRemove);
+        if (!itemIdToRemove) {
+            console.error("ID do item não encontrado.");
+            return;
+        }
+    
+        let cart = JSON.parse(localStorage.getItem('cart')) || []; 
+        console.log("Lista de IDs dos itens no carrinho:", cart.map(item => item.itemId));
+
+        // Encontrar o índice do item no carrinho com o ID correspondente
+        const indexToRemove = cart.findIndex(item => itemCard.dataset.itemId === itemIdToRemove);
+
+        if (indexToRemove !== -1) {
+            // Remover o item do carrinho
+            cart.splice(indexToRemove, 1);
+    
+            // Atualizar o carrinho no localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+            console.log("Lista de itens atualizada:", cart);
+    
+            // Remover o elemento visualmente
+            itemCard.remove();
+    
+            // Recalcular o total do carrinho
+            updateCartTotal(cart);
+        } else {
+            console.error("Item não encontrado no carrinho.");
+        }
     });
+    
     itemCard.appendChild(removeButton);
 
     return itemCard;
@@ -58,15 +135,26 @@ function createCartItemElement(cartItem) {
 // Função para atualizar o total do carrinho
 function updateCartTotal(cartItems) {
     const total = cartItems.reduce((acc, item) => acc + item.preco, 0);
-    const cartTotal = document.createElement('p');
-    cartTotal.textContent = `Total: R$ ${total.toFixed(2)}`;
-    const existingCartTotal = document.querySelector('.cartPrice p');
-    if (existingCartTotal) {
-        existingCartTotal.replaceWith(cartTotal);
-    } else {
-        const cartPrice = document.querySelector('.cartPrice');
-        cartPrice.appendChild(cartTotal);
+    const cartTotalElement = document.querySelector('.cartPrice p');
+    if (cartTotalElement) {
+        cartTotalElement.textContent = `Total: R$ ${total.toFixed(2)}`;
     }
 }
-=======
->>>>>>> 8f7675db955a9bb755145c0eae2f67233eb08b29
+
+// Função para carregar os itens do localStorage ao carregar a página
+document.addEventListener('DOMContentLoaded', () => {
+    const itemList = document.querySelector('.itemList');
+    const cartPrice = document.querySelector('.cartPrice');
+
+    if (localStorage.getItem('cart')) {
+        const cartItems = JSON.parse(localStorage.getItem('cart'));
+
+        cartItems.forEach(cartItem => {
+            const itemCard = createCartItemElement(cartItem);
+            itemList.appendChild(itemCard);
+        });
+
+        updateCartTotal(cartItems);
+    }
+
+});
